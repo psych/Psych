@@ -1,7 +1,7 @@
 
 import { Heart, Shield, Clock, Users, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 
 const features = [
   {
@@ -38,8 +38,6 @@ const features = [
 
 export default function FeaturesSection() {
   const featuresRef = useRef(null);
-=======
-import { CheckCircle, Shield, Clock, CreditCard } from 'lucide
 
   return (
     <div id="features" ref={featuresRef} className="py-16 bg-white overflow-hidden">

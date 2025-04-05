@@ -44,38 +44,11 @@ export default function PsychWebsite() {
   }, []);
 
 
-=======
-  // Testimonials data
-  const testimonials = [
-    {
-      text: "Psych transformed my approach to therapy. The convenience of connecting with my therapist from home has been life-changing.",
-      author: "Sarah M."
-    },
-    {
-      text: "After trying several platforms, Psych stands out for its intuitive interface and quality therapists. Highly recommend!",
-      author: "David K."
-    },
-    {
-      text: "The flexible scheduling makes it possible for me to prioritize mental health alongside my busy work schedule.",
-      author: "Elena "
-    }
-  ];
-
-  // Auto rotate testimonials
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, [testimonials.length]);
-
-
   // Scroll to section
   const scrollToSection = (sectionRef: React.RefObject<HTMLDivElement>) => {
     sectionRef.current?.scrollIntoView({ behavior: 'smooth' });
     setShowMobileMenu(false);
   };
-
 
   return (
     <div className="font-sans text-gray-800 bg-gradient-to-br from-blue-50 to-white min-h-screen">
@@ -214,47 +187,6 @@ export default function PsychWebsite() {
 
       {/* Hero Section */}
       <div
-        id="home"
-        ref={homeRef}
-        className="min-h-screen pt-24 pb-32 md:pt-32 flex items-center"
-      >
-        <div className="container mx-auto px-4">
-          <div className="flex justify-center w-full">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="w-full md:w-2/3 text-center"
-            >
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6 leading-tight">
-                Mental Health{" "}<br></br>
-                <span className="text-[#4A90E2]">Matters ! </span>
-              </h1>
-              <p className="text-xl text-gray-600 mb-8">
-                Every Suicide Every Harm to Human Life Shouts that your Mental Health Matters!<br></br>
-                Join Us!
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setModalOpen("register")}
-                  className="px-8 py-3 bg-[#4A90E2] text-white rounded-lg shadow-lg hover:bg-[#357ABD] transition-all font-medium"
-                >
-                  Get Started Now
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => scrollToSection(featuresRef)}
-                  className="px-8 py-3 border border-[#4A90E2] text-[#4A90E2] rounded-lg hover:bg-blue-50 transition-all font-medium"
-                >
-                  Learn More
-                </motion.button>
-              </div>
-            </motion.div>
-          </div>
-=======
   id="home"
   ref={homeRef}
   className="min-h-screen pt-24 pb-32 md:pt-32 flex items-center"
@@ -406,9 +338,8 @@ export default function PsychWebsite() {
         </div>
       </div>
 
-      {/* Footer */}
       <Footer />
-      
+
       {/* Login Modal */}
       <AnimatePresence>{modalOpen === "login" && <Login modalOpen={modalOpen} setModalOpen={setModalOpen}/>}</AnimatePresence>
       {/* Register Modal */}
