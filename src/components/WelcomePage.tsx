@@ -70,7 +70,7 @@ export default function PsychWebsite() {
     },
     {
       text: "The flexible scheduling makes it possible for me to prioritize mental health alongside my busy work schedule.",
-      author: "Elena T."
+      author: "Elena "
     }
   ];
 
