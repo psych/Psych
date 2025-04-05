@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckCircle, Shield, Clock, CreditCard } from 'lucide-react';
 
 export default function Features() {
