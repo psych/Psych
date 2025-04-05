@@ -1,35 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Shield, Clock, ChevronDown, ChevronRight, Menu, X } from 'lucide-react';
+import { Heart, Shield, Clock, Menu, X } from 'lucide-react';
 import Questionnaire from './Questionnaire';
 import Login from './Login'
 import Register from './Register'
+import Footer from './Footer';
+import FAQ from './FAQ';
+import Testimonials from './Testimonials';
 
-// FAQ Data
-const faqData = [
-  {
-    question: "How does online therapy work?",
-    answer: "Our platform connects you with licensed therapists through secure video sessions. After signing up, you can browse therapist profiles, schedule appointments, and attend sessions from any device with internet access."
-  },
-  {
-    question: "Is online therapy effective?",
-    answer: "Research shows online therapy can be as effective as in-person therapy for many conditions including anxiety, depression, and stress management. Our therapists use the same evidence-based approaches they would in traditional settings."
-  },
-  {
-    question: "How much does it cost?",
-    answer: "We offer various subscription plans starting at $49/week. Many insurance providers cover our services, and we offer financial aid options for those who qualify."
-  },
-  {
-    question: "Is my information private?",
-    answer: "Absolutely. We use bank-level encryption for all communications, and our platform is fully HIPAA compliant. Your privacy and confidentiality are our top priorities."
-  }
-];
 
 export default function PsychWebsite() {
   const [activeSection, setActiveSection] = useState("home");
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [activeQuestion, setActiveQuestion] = useState<number | null>(null);
   const [modalOpen, setModalOpen] = useState<"register" | "questionnaire" | "login" | null>(null);
 
   // References for scroll
@@ -61,29 +43,6 @@ export default function PsychWebsite() {
     };
   }, []);
 
-  // Testimonials data
-  const testimonials = [
-    {
-      text: "Psych transformed my approach to therapy. The convenience of connecting with my therapist from home has been life-changing.",
-      author: "Sarah M."
-    },
-    {
-      text: "After trying several platforms, Psych stands out for its intuitive interface and quality therapists. Highly recommend!",
-      author: "David K."
-    },
-    {
-      text: "The flexible scheduling makes it possible for me to prioritize mental health alongside my busy work schedule.",
-      author: "Elena T."
-    }
-  ];
-
-  // Auto rotate testimonials
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, [testimonials.length]);
 
   // Scroll to section
   const scrollToSection = (sectionRef: React.RefObject<HTMLDivElement>) => {
@@ -91,14 +50,6 @@ export default function PsychWebsite() {
     setShowMobileMenu(false);
   };
 
-  // Toggle FAQ
-  const toggleQuestion = (index: number) => {
-    setActiveQuestion(activeQuestion === index ? null : index);
-  };
-
-
-  // const [modalOpen, setModalOpen] = useState<string | null>(null);
-  
 
   return (
     <div className="font-sans text-gray-800 bg-gradient-to-br from-blue-50 to-white min-h-screen">
@@ -236,23 +187,28 @@ export default function PsychWebsite() {
       </motion.nav>
 
       {/* Hero Section */}
-      <div id="home" ref={homeRef} className="pt-24 pb-16 md:pt-32 md:pb-24">
+      <div
+        id="home"
+        ref={homeRef}
+        className="min-h-screen pt-24 pb-32 md:pt-32 flex items-center"
+      >
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center">
-            {/* Text Content */}
-            <motion.div 
+          <div className="flex justify-center w-full">
+            <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="w-full md:w-1/2 mb-12 md:mb-0"
+              className="w-full md:w-2/3 text-center"
             >
               <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6 leading-tight">
-                Begin Your Journey to <span className="text-[#4A90E2]">Better Mental Health</span>
+                Mental Health{" "}<br></br>
+                <span className="text-[#4A90E2]">Matters ! </span>
               </h1>
               <p className="text-xl text-gray-600 mb-8">
-                Connect with licensed therapists from the comfort of your home and take the first step toward emotional wellbeing.
+                Every Suicide Every Harm to Human Life Shouts that your Mental Health Matters!<br></br>
+                Join Us!
               </p>
-              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+              <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -269,23 +225,6 @@ export default function PsychWebsite() {
                 >
                   Learn More
                 </motion.button>
-              </div>
-            </motion.div>
-            
-            {/* Hero Image */}
-            <motion.div 
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-full md:w-1/2"
-            >
-              <div className="relative">
-                <div className="absolute inset-0 bg-[#4A90E2]/10 rounded-xl transform rotate-3"></div>
-                <img 
-                  src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1200&q=80" 
-                  alt="Therapist with patient" 
-                  className="rounded-xl shadow-xl relative z-10"
-                />
               </div>
             </motion.div>
           </div>
@@ -369,110 +308,10 @@ export default function PsychWebsite() {
       </div>
 
       {/* Testimonials */}
-      <div className="py-16 bg-gradient-to-br from-[#4A90E2]/10 to-blue-50">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              What Our Users Say
-            </h2>
-          </motion.div>
-
-          <div className="max-w-4xl mx-auto relative h-64">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentTestimonial}
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{ duration: 0.5 }}
-                className="bg-white p-8 rounded-xl shadow-lg absolute inset-0"
-              >
-                <div className="flex flex-col h-full justify-between">
-                  <p className="text-xl italic text-gray-600 mb-8">"{testimonials[currentTestimonial].text}"</p>
-                  <p className="text-right font-medium text-[#4A90E2]">— {testimonials[currentTestimonial].author}</p>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-            
-            {/* Dots */}
-            <div className="flex justify-center mt-8 space-x-2 absolute bottom-0 left-0 right-0">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentTestimonial(index)}
-                  className={`w-3 h-3 rounded-full transition-all ${
-                    index === currentTestimonial ? 'bg-[#4A90E2] w-8' : 'bg-[#4A90E2]/30'
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+      <Testimonials />
 
       {/* FAQ Section */}
-      <div id="faq" ref={faqRef} className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Find answers to common questions about our platform
-            </p>
-          </motion.div>
-
-          <div className="max-w-3xl mx-auto">
-            {faqData.map((faq, index) => (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                key={index}
-                className="mb-4"
-              >
-                <button
-                  onClick={() => toggleQuestion(index)}
-                  className="flex justify-between items-center w-full bg-blue-50 p-4 rounded-lg hover:bg-blue-100 transition-colors"
-                >
-                  <span className="font-medium text-left">{faq.question}</span>
-                  {activeQuestion === index ? 
-                    <ChevronDown className="w-5 h-5 text-[#4A90E2]" /> : 
-                    <ChevronRight className="w-5 h-5 text-[#4A90E2]" />
-                  }
-                </button>
-                <AnimatePresence>
-                  {activeQuestion === index && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="p-4 border border-blue-100 rounded-b-lg">
-                        <p className="text-gray-600">{faq.answer}</p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
+      <FAQ ref={faqRef} />
 
       {/* CTA Section */}
       <div className="py-16 bg-gradient-to-br from-[#4A90E2]/20 to-blue-100">
@@ -501,56 +340,8 @@ export default function PsychWebsite() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white py-12">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between">
-            <div className="mb-8 md:mb-0">
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="bg-[#4A90E2] p-2 rounded-lg">
-                  <Heart className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-2xl font-bold text-white">Psych</span>
-              </div>
-              <p className="text-gray-400 max-w-xs">
-                Your trusted partner for accessible mental health therapy online.
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
-              <div>
-                <h3 className="text-lg font-semibold mb-4">Platform</h3>
-                <ul className="space-y-2 text-gray-400">
-                  <li><a href="#" className="hover:text-[#4A90E2] transition-colors">How It Works</a></li>
-                  <li><a href="#" className="hover:text-[#4A90E2] transition-colors">Our Therapists</a></li>
-                  <li><a href="#" className="hover:text-[#4A90E2] transition-colors">Pricing</a></li>
-                  <li><a href="#" className="hover:text-[#4A90E2] transition-colors">Reviews</a></li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-4">Company</h3>
-                <ul className="space-y-2 text-gray-400">
-                  <li><a href="#" className="hover:text-[#4A90E2] transition-colors">About Us</a></li>
-                  <li><a href="#" className="hover:text-[#4A90E2] transition-colors">Careers</a></li>
-                  <li><a href="#" className="hover:text-[#4A90E2] transition-colors">Contact</a></li>
-                  <li><a href="#" className="hover:text-[#4A90E2] transition-colors">Blog</a></li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-4">Legal</h3>
-                <ul className="space-y-2 text-gray-400">
-                  <li><a href="#" className="hover:text-[#4A90E2] transition-colors">Privacy Policy</a></li>
-                  <li><a href="#" className="hover:text-[#4A90E2] transition-colors">Terms of Service</a></li>
-                  <li><a href="#" className="hover:text-[#4A90E2] transition-colors">Cookie Policy</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-gray-700 mt-12 pt-8 text-center text-gray-500">
-            <p>&copy; {new Date().getFullYear()} Psych. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
-
+      <Footer />
+      
       {/* Login Modal */}
       <AnimatePresence>{modalOpen === "login" && <Login modalOpen={modalOpen} setModalOpen={setModalOpen}/>}</AnimatePresence>
       {/* Register Modal */}
