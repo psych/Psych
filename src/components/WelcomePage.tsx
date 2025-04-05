@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Shield, Clock, ChevronDown, ChevronRight, Menu, X } from 'lucide-react';
+import Questionnaire from './Questionnaire';
+import Login from './Login'
+import Register from './Register'
 
 // FAQ Data
 const faqData = [
@@ -27,7 +30,7 @@ export default function PsychWebsite() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [activeQuestion, setActiveQuestion] = useState<number | null>(null);
-  const [modalOpen, setModalOpen] = useState<"login" | "register" | null>(null);
+  const [modalOpen, setModalOpen] = useState<"register" | "questionnaire" | "login" | null>(null);
 
   // References for scroll
   const homeRef = useRef<HTMLDivElement>(null);
@@ -95,28 +98,7 @@ export default function PsychWebsite() {
 
 
   // const [modalOpen, setModalOpen] = useState<string | null>(null);
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    setModalOpen(null);
-  };
+  
 
   return (
     <div className="font-sans text-gray-800 bg-gradient-to-br from-blue-50 to-white min-h-screen">
@@ -558,195 +540,10 @@ export default function PsychWebsite() {
       </footer>
 
       {/* Login Modal */}
-      <AnimatePresence>
-        {modalOpen === "login" && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
-          >
-            <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              className="bg-white rounded-xl p-8 max-w-md w-full"
-            >
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold">Login</h3>
-                <button onClick={() => setModalOpen(null)}>
-                  <X className="w-5 h-5 text-gray-500 hover:text-gray-800" />
-                </button>
-              </div>
-              
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-gray-700 mb-2">Email</label>
-                  <input
-                    type="email"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4A90E2] focus:border-transparent outline-none transition-all"
-                    placeholder="your@email.com"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 mb-2">Password</label>
-                  <input
-                    type="password"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4A90E2] focus:border-transparent outline-none transition-all"
-                    placeholder="••••••••"
-                  />
-                </div>
-                <div className="flex justify-between items-center">
-                  <label className="flex items-center">
-                    <input type="checkbox" className="mr-2" />
-                    <span className="text-sm text-gray-600">Remember me</span>
-                  </label>
-                  <a href="#" className="text-sm text-[#4A90E2] hover:underline">Forgot password?</a>
-                </div>
-                <motion.button
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full bg-[#4A90E2] text-white py-3 rounded-lg hover:bg-[#357ABD] transition-all font-medium"
-                >
-                  Login
-                </motion.button>
-                <p className="text-center text-gray-600 text-sm mt-4">
-                  Don't have an account?{" "}
-                  <button 
-                    onClick={() => setModalOpen("register")}
-                    className="text-[#4A90E2] hover:underline font-medium"
-                  >
-                    Register
-                  </button>
-                </p>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <AnimatePresence>{modalOpen === "login" && <Login modalOpen={modalOpen} setModalOpen={setModalOpen}/>}</AnimatePresence>
       {/* Register Modal */}
-      <AnimatePresence>
-        {modalOpen === "register" && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
-            onClick={(e) => {
-              if (e.target === e.currentTarget) setModalOpen(null);
-            }}
-          >
-            <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              className="bg-white rounded-xl p-8 max-w-md w-full"
-            >
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold">Create Account</h3>
-                <button 
-                  onClick={() => setModalOpen(null)}
-                  className="hover:bg-gray-100 p-2 rounded-full transition-colors"
-                >
-                  <X className="w-5 h-5 text-gray-500 hover:text-gray-800" />
-                </button>
-              </div>
-              
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-gray-700 mb-2 text-sm font-medium">
-                      First Name
-                    </label>
-                    <input
-                      type="text"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-gray-700 mb-2 text-sm font-medium">
-                      Last Name
-                    </label>
-                    <input
-                      type="text"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-gray-700 mb-2 text-sm font-medium">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-gray-700 mb-2 text-sm font-medium">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-gray-700 mb-2 text-sm font-medium">
-                    Confirm Password
-                  </label>
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                    required
-                  />
-                </div>
-
-                <div className="pt-4">
-                  <button
-                    type="submit"
-                    className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
-                  >
-                    Create Account
-                  </button>
-                </div>
-
-                <p className="text-center text-sm text-gray-600 mt-4">
-                  Already have an account?{" "}
-                  <button
-                    type="button"
-                    onClick={() => setModalOpen("login")}
-                    className="text-blue-600 hover:text-blue-800 font-medium"
-                  >
-                    Sign in
-                  </button>
-                </p>
-              </form>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <AnimatePresence>{modalOpen === "register" && <Register modalOpen={modalOpen} setModalOpen={setModalOpen}/>}</AnimatePresence>
+      {/* Questionnaire Modal */}
+      <AnimatePresence>{modalOpen === "questionnaire" && <Questionnaire modalOpen={modalOpen} setModalOpen={setModalOpen}/>}</AnimatePresence>
       </div>
   )}
