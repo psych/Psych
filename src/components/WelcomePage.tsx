@@ -254,61 +254,49 @@ export default function PsychWebsite() {
       </motion.nav>
 
       {/* Hero Section */}
-      <div id="home" ref={homeRef} className="pt-24 pb-16 md:pt-32 md:pb-24">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center">
-            {/* Text Content */}
-            <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="w-full md:w-1/2 mb-12 md:mb-0"
-            >
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6 leading-tight">
-                Begin Your Journey to <span className="text-[#4A90E2]">Better Mental Health</span>
-              </h1>
-              <p className="text-xl text-gray-600 mb-8">
-                Connect with licensed therapists from the comfort of your home and take the first step toward emotional wellbeing.
-              </p>
-              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setModalOpen("register")}
-                  className="px-8 py-3 bg-[#4A90E2] text-white rounded-lg shadow-lg hover:bg-[#357ABD] transition-all font-medium"
-                >
-                  Get Started Now
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => scrollToSection(featuresRef)}
-                  className="px-8 py-3 border border-[#4A90E2] text-[#4A90E2] rounded-lg hover:bg-blue-50 transition-all font-medium"
-                >
-                  Learn More
-                </motion.button>
-              </div>
-            </motion.div>
-            
-            {/* Hero Image */}
-            <motion.div 
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-full md:w-1/2"
-            >
-              <div className="relative">
-                <div className="absolute inset-0 bg-[#4A90E2]/10 rounded-xl transform rotate-3"></div>
-                <img 
-                  src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1200&q=80" 
-                  alt="Therapist with patient" 
-                  className="rounded-xl shadow-xl relative z-10"
-                />
-              </div>
-            </motion.div>
-          </div>
+      <div
+  id="home"
+  ref={homeRef}
+  className="min-h-screen pt-24 pb-32 md:pt-32 flex items-center"
+>
+  <div className="container mx-auto px-4">
+    <div className="flex justify-center w-full">
+      <motion.div
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }}
+        className="w-full md:w-2/3 text-center"
+      >
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6 leading-tight">
+          Mental Health{" "}<br></br>
+          <span className="text-[#4A90E2]">Matters ! </span>
+        </h1>
+        <p className="text-xl text-gray-600 mb-8">
+          Every Suicide Every Harm to Human Life Shouts that your Mental Health Matters!<br></br>
+          Join Us!
+        </p>
+        <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setModalOpen("register")}
+            className="px-8 py-3 bg-[#4A90E2] text-white rounded-lg shadow-lg hover:bg-[#357ABD] transition-all font-medium"
+          >
+            Get Started Now
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => scrollToSection(featuresRef)}
+            className="px-8 py-3 border border-[#4A90E2] text-[#4A90E2] rounded-lg hover:bg-blue-50 transition-all font-medium"
+          >
+            Learn More
+          </motion.button>
         </div>
-      </div>
+      </motion.div>
+    </div>
+  </div>
+</div>
 
       {/* Features Section */}
       <div id="features" ref={featuresRef} className="py-16 bg-white">
