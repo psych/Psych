@@ -4,15 +4,14 @@ import { X } from "lucide-react";
 
   
     type LoginProps = {
-    modalOpen: "register" | "questionnaire" | "login" | null;
-    setModalOpen: React.Dispatch<React.SetStateAction<"register" | "questionnaire" | "login" | null>>;
+    setModalOpen: React.Dispatch<React.SetStateAction<"register" | "login" | null>>;
+    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
   };
   
-  export default function Login({ modalOpen, setModalOpen }: LoginProps) {
+  export default function Login({ setModalOpen, setIsLoggedIn }: LoginProps) {
   
     return (
       <AnimatePresence>
-              {modalOpen === "login" && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -60,6 +59,7 @@ import { X } from "lucide-react";
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.98 }}
                         className="w-full bg-[#4A90E2] text-white py-3 rounded-lg hover:bg-[#357ABD] transition-all font-medium"
+                        onClick={() => setIsLoggedIn(true)}
                       >
                         Login
                       </motion.button>
@@ -75,7 +75,6 @@ import { X } from "lucide-react";
                     </div>
                   </motion.div>
                 </motion.div>
-              )}
             </AnimatePresence>
     );
   }  

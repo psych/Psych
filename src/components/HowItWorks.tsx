@@ -1,4 +1,3 @@
-import React from 'react';
 import { Search, Calendar, Video } from 'lucide-react';
 
 export default function HowItWorks() {

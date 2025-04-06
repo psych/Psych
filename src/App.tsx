@@ -7,13 +7,14 @@ import HowItWorks from './components/HowItWorks';
 import Features from './components/Features';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
-
+import AppointmentPage from './components/AppointmentPage';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   if (!isLoggedIn) {
-    return <WelcomePage />;
+    // return <WelcomePage setIsLoggedIn={setIsLoggedIn} />;
+    return <AppointmentPage/>
   }
 
   return (

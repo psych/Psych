@@ -8,8 +8,11 @@ import Footer from './Footer';
 import FAQ from './FAQ';
 import Testimonials from './Testimonials';
 
+type WelcomePageProps = {
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-export default function PsychWebsite() {
+export default function PsychWebsite({setIsLoggedIn} : WelcomePageProps) {
   const [activeSection, setActiveSection] = useState("home");
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [modalOpen, setModalOpen] = useState<"register" | "questionnaire" | "login" | null>(null);
@@ -341,10 +344,10 @@ export default function PsychWebsite() {
       <Footer />
 
       {/* Login Modal */}
-      <AnimatePresence>{modalOpen === "login" && <Login modalOpen={modalOpen} setModalOpen={setModalOpen}/>}</AnimatePresence>
+      <AnimatePresence>{modalOpen === "login" && <Login setModalOpen={setModalOpen} setIsLoggedIn={setIsLoggedIn}/>}</AnimatePresence>
       {/* Register Modal */}
-      <AnimatePresence>{modalOpen === "register" && <Register modalOpen={modalOpen} setModalOpen={setModalOpen}/>}</AnimatePresence>
+      <AnimatePresence>{modalOpen === "register" && <Register setModalOpen={setModalOpen}/>}</AnimatePresence>
       {/* Questionnaire Modal */}
-      <AnimatePresence>{modalOpen === "questionnaire" && <Questionnaire modalOpen={modalOpen} setModalOpen={setModalOpen}/>}</AnimatePresence>
+      <AnimatePresence>{modalOpen === "questionnaire" && <Questionnaire setModalOpen={setModalOpen} setIsLoggedIn={setIsLoggedIn}/>}</AnimatePresence>
       </div>
   )}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowLeft } from "lucide-react";
 
@@ -13,11 +13,11 @@ type AnswersType = {
   };
   
   type QuestionnaireProps = {
-    modalOpen: "register" | "questionnaire" | "login" | null;
-    setModalOpen: React.Dispatch<React.SetStateAction<"register" | "questionnaire" | "login" | null>>;
+    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
+    setModalOpen: React.Dispatch<React.SetStateAction<"register" | "questionnaire" | null>>;
   };
   
-  export default function Questionnaire({ modalOpen, setModalOpen }: QuestionnaireProps) {
+  export default function Questionnaire({setModalOpen, setIsLoggedIn}: QuestionnaireProps) {
     const [currentStep, setCurrentStep] = useState(0);
     const [answers, setAnswers] = useState<AnswersType>({});
   
@@ -54,6 +54,7 @@ type AnswersType = {
       } else {
         console.log("Submitted Answers:", answers);
         setModalOpen(null);
+        setIsLoggedIn(true);
       }
     };
   
@@ -65,8 +66,7 @@ type AnswersType = {
   
     return (
       <AnimatePresence>
-        {modalOpen === "questionnaire" && (
-          <motion.div
+        <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -121,7 +121,6 @@ type AnswersType = {
               </form>
             </motion.div>
           </motion.div>
-        )}
       </AnimatePresence>
     );
   }  

@@ -3,11 +3,10 @@ import { X } from "lucide-react";
 import { useState } from "react";
 
 type RegisterProps = {
-    modalOpen: "register" | "questionnaire" | "login" | null;
     setModalOpen: React.Dispatch<React.SetStateAction<"register" | "questionnaire" | "login" | null>>;
   };
 
-  export default function Register({ modalOpen, setModalOpen }: RegisterProps) {
+  export default function Register({ setModalOpen }: RegisterProps) {
 
 
     const [formData, setFormData] = useState({
@@ -35,7 +34,6 @@ type RegisterProps = {
 
     return (
         <AnimatePresence>
-        {modalOpen === "register" && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -155,7 +153,6 @@ type RegisterProps = {
               </form>
             </motion.div>
           </motion.div>
-        )}
       </AnimatePresence>
     );
   }  
