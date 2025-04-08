@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import DoctorsList from './DoctorsList';
-import DoctorDetail from './DoctorDetail';
-import { Doctor } from './Types';
+import DoctorsList from '../components/DoctorsList';
+import DoctorDetail from '../components/DoctorDetail';
+import { Doctor } from '../components/Types';
 
 export default function AppointmentPage() {
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);

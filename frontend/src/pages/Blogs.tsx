@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, Book, Newspaper } from 'lucide-react';
-import Articles from './Articles';
-import Events from './Events';
-import Books from './Books';
+import Articles from '../components/Articles';
+import Events from '../components/Events';
+import Books from '../components/Books';
 
 export default function BlogPage() {
   const [activeTab, setActiveTab] = useState<'articles' | 'events' | 'books'>('articles');
