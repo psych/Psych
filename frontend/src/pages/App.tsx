@@ -1,28 +1,24 @@
 import React, { useState } from 'react';
 import WelcomePage from './WelcomePage';
 import Navbar from '../components/Navbar';
-import Hero from '../components/Hero';
-import TrustIndicators from '../components/TrustIndicators';
-import HowItWorks from '../components/HowItWorks';
-import Features from '../components/Features';
-import Testimonials from '../components/Testimonials';
 import Footer from '../components/Footer';
-function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+import Blogs from '../pages/Blogs'
+import MainWindow from './MainWindow';
+import AppointmentPage from './AppointmentPage'
 
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [section, setIsSection] = useState<"MainWindow" | "Blogs" | "Find_therapist">("MainWindow");
   if (!isLoggedIn) {
     return <WelcomePage setIsLoggedIn={setIsLoggedIn} />;
   }
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
-      <Hero searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-      <TrustIndicators />
-      <HowItWorks />
-      <Features />
-      <Testimonials />
+      <Navbar setIsSection = {setIsSection} />
+      {section == "Blogs" && <Blogs />}
+      {section == "MainWindow" && <MainWindow setIsSection = {setIsSection}/>}
+      {section == "Find_therapist" && <AppointmentPage />}
       <Footer />
     </div>
   );

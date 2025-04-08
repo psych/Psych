@@ -7,6 +7,7 @@ import Register from '../components/Register'
 import Footer from '../components/Footer';
 import FAQ from '../components/FAQ';
 import Testimonials from '../components/Testimonials';
+import FeaturesSection from '../components/Features';
 
 type WelcomePageProps = {
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
@@ -234,80 +235,7 @@ export default function PsychWebsite({setIsLoggedIn} : WelcomePageProps) {
 </div>
 
       {/* Features Section */}
-      <div id="features" ref={featuresRef} className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Why Choose <span className="text-[#4A90E2]">Psych</span>
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our platform offers everything you need for effective online therapy
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -10 }}
-              className="bg-gradient-to-br from-blue-50 to-white p-8 rounded-xl shadow-lg"
-            >
-              <div className="bg-[#4A90E2] inline-block p-3 rounded-lg mb-6">
-                <Heart className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-4">Connect with Licensed Therapists</h3>
-              <p className="text-gray-600">
-                Access a network of verified mental health professionals from the comfort of your home.
-              </p>
-            </motion.div>
-
-            {/* Feature 2 */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -10 }}
-              className="bg-gradient-to-br from-blue-50 to-white p-8 rounded-xl shadow-lg"
-            >
-              <div className="bg-[#4A90E2] inline-block p-3 rounded-lg mb-6">
-                <Shield className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-4">Secure Video Sessions</h3>
-              <p className="text-gray-600">
-                Experience private, encrypted therapy sessions with complete peace of mind.
-              </p>
-            </motion.div>
-
-            {/* Feature 3 */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -10 }}
-              className="bg-gradient-to-br from-blue-50 to-white p-8 rounded-xl shadow-lg"
-            >
-              <div className="bg-[#4A90E2] inline-block p-3 rounded-lg mb-6">
-                <Clock className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-4">Flexible Scheduling</h3>
-              <p className="text-gray-600">
-                Book appointments that fit your lifestyle, available 24/7.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </div>
+      <FeaturesSection />
 
       {/* Testimonials */}
       <Testimonials />

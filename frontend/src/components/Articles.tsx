@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { User, Clock } from 'lucide-react';
+import { User, Clock, ArrowRight } from 'lucide-react';
 
 export default function Articles() {
   return (
-    <div className="grid md:grid-cols-2 gap-8">
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       <ArticleCard
         title="The Future of Web Development"
         summary="Exploring the latest trends and technologies shaping the future of web development..."
@@ -31,8 +31,10 @@ function ArticleCard({ title, summary, author, date, image }: {
   image: string;
 }) {
   return (
-    <motion.div whileHover={{ y: -5 }} className="bg-white rounded-xl shadow-lg overflow-hidden">
-      <img src={image} alt={title} className="w-full h-48 object-cover" />
+    <motion.div whileHover={{ scale: 1.03 }} className="bg-white rounded-xl shadow-lg overflow-hidden group">
+      <div className="h-48 overflow-hidden">
+        <img src={image} alt={title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+      </div>
       <div className="p-6">
         <h3 className="text-xl font-bold text-[#4A90E2] mb-2">{title}</h3>
         <p className="text-gray-600 mb-4">{summary}</p>
@@ -46,6 +48,13 @@ function ArticleCard({ title, summary, author, date, image }: {
             <span>{date}</span>
           </div>
         </div>
+        <motion.button
+          whileHover={{ x: 5 }}
+          className="text-[#4A90E2] mt-4 flex items-center space-x-1 text-sm font-medium cursor-pointer"
+        >
+          <span>Read more</span>
+          <ArrowRight size={16} />
+        </motion.button>
       </div>
     </motion.div>
   );

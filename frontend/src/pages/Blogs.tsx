@@ -9,6 +9,7 @@ export default function BlogPage() {
   const [activeTab, setActiveTab] = useState<'articles' | 'events' | 'books'>('articles');
 
   return (
+    <div>
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white">
       <div className="container mx-auto px-4 py-16">
         <motion.h1 
@@ -64,6 +65,7 @@ export default function BlogPage() {
           </motion.div>
         </AnimatePresence>
       </div>
+    </div>
     </div>
   );
 }
