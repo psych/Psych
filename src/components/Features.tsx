@@ -1,86 +1,120 @@
-
-import { Heart, Shield, Clock, Users, MessageCircle } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useRef } from 'react';
+import {
+  Heart,
+  Shield,
+  Clock,
+  Users,
+  MessageCircle,
+} from 'lucide-react';
 
 const features = [
   {
-    icon: <Heart className="w-6 h-6 text-white" />, 
-    title: "Connect with Licensed Therapists", 
-    shortDesc: "Verified mental health professionals.",
-    desc: "Access a network of verified mental health professionals from the comfort of your home."
+    icon: <Heart className="w-6 h-6 text-white" />,
+    title: "Connect with Therapists",
+    desc: "Licensed professionals available at your fingertips for personalized care and support.",
   },
   {
-    icon: <Shield className="w-6 h-6 text-white" />, 
-    title: "Secure Video Sessions", 
-    shortDesc: "Private encrypted calls.",
-    desc: "Experience private, encrypted therapy sessions with complete peace of mind."
+    icon: <Shield className="w-6 h-6 text-white" />,
+    title: "Secure Sessions",
+    desc: "End-to-end encrypted video sessions ensuring your privacy and confidentiality.",
   },
   {
-    icon: <Clock className="w-6 h-6 text-white" />, 
-    title: "Flexible Scheduling", 
-    shortDesc: "Book anytime, 24/7.",
-    desc: "Book appointments that fit your lifestyle, available any time of the day or night."
+    icon: <Clock className="w-6 h-6 text-white" />,
+    title: "Flexible Scheduling",
+    desc: "Book sessions that fit your schedule with our easy-to-use calendar system.",
   },
   {
-    icon: <Users className="w-6 h-6 text-white" />, 
-    title: "Community Group Events", 
-    shortDesc: "Group support available.",
-    desc: "Join group therapy and peer discussions to feel connected and supported on your journey."
+    icon: <Users className="w-6 h-6 text-white" />,
+    title: "Group Support",
+    desc: "Join therapeutic group sessions and connect with others on similar journeys.",
   },
   {
-    icon: <MessageCircle className="w-6 h-6 text-white" />, 
-    title: "24/7 Mental Health Chatbot", 
-    shortDesc: "Instant chatbot support.",
-    desc: "Get instant support and mental wellness tips any time with our intelligent chatbot."
-  }
+    icon: <MessageCircle className="w-6 h-6 text-white" />,
+    title: "24/7 Support",
+    desc: "Access our AI-powered chatbot for immediate support whenever you need it.",
+  },
 ];
 
 export default function FeaturesSection() {
-  const featuresRef = useRef(null);
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % features.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const getDisplayItems = () => {
+    const items = [];
+    for (let offset = -1; offset <= 1; offset++) {
+      const featureIndex = (index + offset + features.length) % features.length;
+      items.push({
+        ...features[featureIndex],
+        position: offset,
+        key: `${featureIndex}-${offset}`,
+      });
+    }
+    return items;
+  };
+
+  const truncate = (text: string, length: number) =>
+    text.length > length ? text.slice(0, length) + '... read more' : text;
 
   return (
-    <div id="features" ref={featuresRef} className="py-16 bg-white overflow-hidden">
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Why Choose <span className="text-[#4A90E2]">Psych</span>
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Our platform offers everything you need for effective online therapy
-          </p>
-        </motion.div>
+    <div className="py-20 bg-white flex justify-center items-center min-h-screen overflow-hidden">
+      <div className="w-full max-w-7xl text-center">
+        <h2 className="text-4xl font-bold mb-12">
+          Why Choose <span className="text-[#4A90E2]">Psych</span>
+        </h2>
 
-        <div className="flex space-x-6 overflow-x-auto pb-4 scroll-smooth snap-x">
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ scale: 1.1 }}
-              className="snap-start min-w-[280px] bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl shadow-lg flex-shrink-0 hover:z-10 hover:shadow-xl transition-all cursor-pointer group"
-            >
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-                className="bg-[#4A90E2] inline-block p-3 rounded-lg mb-4"
-              >
-                {feature.icon}
-              </motion.div>
-              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-              <p className="text-gray-600 text-sm block md:hidden">{feature.shortDesc}</p>
-              <p className="text-gray-600 text-sm hidden md:block group-hover:block transition-all duration-300 ease-in-out">
-                {feature.desc}
-              </p>
-            </motion.div>
-          ))}
+        <div className="relative w-full h-[360px] perspective-[1200px]">
+          <div className="relative w-full h-full flex items-center justify-center">
+            {getDisplayItems().map((feature) => {
+              const isCenter = feature.position === 0;
+              const scale = isCenter ? 1 : 0.85;
+              const opacity = isCenter ? 1 : 0.75;
+              const translateX = feature.position * 280;
+              const rotateY = feature.position * -40;
+              const zIndex = 10 - Math.abs(feature.position);
+              const boxClasses = isCenter
+                ? 'w-[260px] h-[260px]'
+                : 'w-[220px] h-[220px]';
+
+              return (
+                <motion.div
+                  key={feature.key}
+                  className={`absolute ${boxClasses}`}
+                  initial={false}
+                  animate={{
+                    scale,
+                    opacity,
+                    x: translateX,
+                    rotateY,
+                    zIndex,
+                  }}
+                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+                  style={{
+                    transformStyle: 'preserve-3d',
+                  }}
+                >
+                  <div
+                    className={`bg-gradient-to-br from-blue-50 to-white h-full p-4 rounded-2xl shadow-xl flex flex-col items-center justify-start
+                      ${isCenter ? 'border-2 border-[#4A90E2]/20' : ''}`}
+                  >
+                    <div className="bg-[#4A90E2] p-3 rounded-lg mb-3">
+                      {feature.icon}
+                    </div>
+                    <h3 className="text-base font-semibold mb-1">{feature.title}</h3>
+                    <p className="text-gray-600 text-xs text-center">
+                      {isCenter ? feature.desc : truncate(feature.desc, 35)}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

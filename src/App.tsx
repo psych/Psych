@@ -9,7 +9,7 @@ import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
   if (!isLoggedIn) {
