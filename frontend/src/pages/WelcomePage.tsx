@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Shield, Clock, Menu, X } from 'lucide-react';
-import Questionnaire from './Questionnaire';
-import Login from './Login'
-import Register from './Register'
-import Footer from './Footer';
-import FAQ from './FAQ';
-import Testimonials from './Testimonials';
+import Questionnaire from '../components/Questionnaire';
+import Login from '../components/Login'
+import Register from '../components/Register'
+import Footer from '../components/Footer';
+import FAQ from '../components/FAQ';
+import Testimonials from '../components/Testimonials';
 
 type WelcomePageProps = {
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;

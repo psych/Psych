@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import WelcomePage from '../components/WelcomePage';
+import WelcomePage from './WelcomePage';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import TrustIndicators from '../components/TrustIndicators';
@@ -8,7 +8,7 @@ import Features from '../components/Features';
 import Testimonials from '../components/Testimonials';
 import Footer from '../components/Footer';
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   if (!isLoggedIn) {
