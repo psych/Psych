@@ -3,16 +3,27 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+=======
     "test": "echo \"Error: no test specified\" && exit 1"
+>>>>>>> c0a09f375b5d2d71db800bea1800048d6d2ad58b
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+<<<<<<< HEAD
+    "express": "^5.1.0",
+    "path": "^0.12.7"
+=======
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "mongoose": "^8.13.2"
+>>>>>>> c0a09f375b5d2d71db800bea1800048d6d2ad58b
   }
 }
