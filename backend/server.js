@@ -1,21 +1,43 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
 require('dotenv').config();
+const express = require('express');
+const compression = require('compression');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const connect = require('./.configs/db');
 
+const authRoutes = require('./routes/authenticate');
+
+
+const PORT = 3000;
+
+
+// App
 const app = express();
-app.use(cors());
+
+// Middlewares
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
+app.use(compression());
+app.use(cors({
+    origin: ['http://localhost:5173'],
+    credentials: true
+}));
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+
+// Routes
+app.get('/', (request, response) => {
+    response.send('Hello, Topper!');
+});
+
+app.use('/api/auth', authRoutes);
+
+app.listen(PORT, async () => {
+    try {
+        await connect();
+        console.log(`Listening at http://localhost:${PORT}`);
+    }
+    catch ({ message }) {
+        console.log(message);
+    }
 })
-.then(() => console.log("MongoDB connected"))
-.catch((err) => console.error(err));
-
-// Import routes
-const featureRoutes = require('./routes/features');
-app.use('/api/features', featureRoutes);
-
-app.listen(5000, () => console.log("Server running on port 5000"));
