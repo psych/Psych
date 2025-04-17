@@ -36,10 +36,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: '', // URL to the profile picture
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
   appointments: [{
     type: mongoose.Schema.Types.ObjectId,
     // ref: 'Appointment'
@@ -48,7 +44,7 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     // ref: 'Article'
   }],
-});
+}, {timestamps: true});
 
 
 

@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const connect = require('./.configs/db');
 
 const authRoutes = require('./routes/authenticate');
-
+const questionnaireRoutes = require('./routes/questionnaire.routes')
 
 const PORT = 3000;
 
@@ -31,6 +31,7 @@ app.get('/', (request, response) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/questionnaire', questionnaireRoutes);
 
 app.listen(PORT, async () => {
     try {

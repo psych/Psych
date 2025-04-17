@@ -1,13 +1,15 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { useState } from "react";
+import axios from "axios";
 
 type RegisterProps = {
-    setModalOpen: React.Dispatch<React.SetStateAction<"register" | "questionnaire" | "login" | null>>;
-  };
+  setModalOpen: React.Dispatch<React.SetStateAction<"register" | "questionnaire" | "login" | null>>;
+  setUserId: React.Dispatch<React.SetStateAction<string>>;
+};
 
-  export default function Register({ setModalOpen }: RegisterProps) {
 
+export default function Register({ setModalOpen, setUserId }: RegisterProps) {
 
     const [formData, setFormData] = useState({
         firstName: '',
@@ -25,11 +27,31 @@ type RegisterProps = {
         }));
       };
     
-      const handleSubmit = (e: React.FormEvent) => {
+      const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
-        setModalOpen("questionnaire");
+      
+        if (formData.password !== formData.confirmPassword) {
+          alert("Passwords do not match!");
+          return;
+        }
+      
+        try {
+          const res = await axios.post("http://localhost:3000/api/auth/register", {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            password: formData.password,
+          });
+      
+          const userId = res.data.userId;
+          setUserId(userId); 
+          setModalOpen("questionnaire");
+        } catch (err: any) {
+          console.error("Registration error:", err.response?.data || err.message);
+          alert(err.response?.data?.message || "Registration failed.");
+        }
       };
+      
 
 
     return (

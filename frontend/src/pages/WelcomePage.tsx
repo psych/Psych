@@ -15,6 +15,7 @@ type WelcomePageProps = {
 
 export default function PsychWebsite({setIsLoggedIn} : WelcomePageProps) {
   const [activeSection, setActiveSection] = useState("home");
+  const [userId, setUserId] = useState("");
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [modalOpen, setModalOpen] = useState<"register" | "questionnaire" | "login" | null>(null);
 
@@ -274,8 +275,8 @@ export default function PsychWebsite({setIsLoggedIn} : WelcomePageProps) {
       {/* Login Modal */}
       <AnimatePresence>{modalOpen === "login" && <Login setModalOpen={setModalOpen} setIsLoggedIn={setIsLoggedIn}/>}</AnimatePresence>
       {/* Register Modal */}
-      <AnimatePresence>{modalOpen === "register" && <Register setModalOpen={setModalOpen}/>}</AnimatePresence>
+      <AnimatePresence>{modalOpen === "register" && <Register setModalOpen={setModalOpen} setUserId={setUserId}/>}</AnimatePresence>
       {/* Questionnaire Modal */}
-      <AnimatePresence>{modalOpen === "questionnaire" && <Questionnaire setModalOpen={setModalOpen} setIsLoggedIn={setIsLoggedIn}/>}</AnimatePresence>
+      <AnimatePresence>{modalOpen === "questionnaire" && <Questionnaire setModalOpen={setModalOpen} setIsLoggedIn={setIsLoggedIn} userId={userId}/>}</AnimatePresence>
       </div>
   )}

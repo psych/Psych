@@ -44,7 +44,8 @@ const authRegister = async (req, res) => {
         return res.status(201).send({
             error: false,
             message: 'New user created!',
-        });
+            userId: user._id,
+        });        
     } catch (error) {
         console.error('Error saving user:', error);
 
