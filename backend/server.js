@@ -5,8 +5,8 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const connect = require('./.configs/db');
 
-const authRoutes = require('./routes/authenticate');
-const questionnaireRoutes = require('./routes/questionnaire.routes')
+const authRoutes = require('./route/authenticate.route');
+const questionnaireRoutes = require('./route/questionnaire.route')
 
 const PORT = 3000;
 

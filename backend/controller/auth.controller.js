@@ -1,65 +1,67 @@
 const User = require('../models/user.model');
-const { CustomException } = require('../utils/CustomException');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const satelize = require('satelize');
 const { JWT_SECRET, NODE_ENV } = process.env;
+const cloudinary = require('../utils/cloudinary');
+const getDataUri = require('../utils/datauri');
+const CustomException = require('../utils/CustomException');
 const saltRounds = 10;
 
 const authRegister = async (req, res) => {
     const { firstName, lastName, email, password } = req.body;
-
+  
     if (!firstName || !lastName || !email || !password) {
-        return res.status(400).send({
-            error: true,
-            message: 'All fields are required!',
-        });
+      return res.status(400).send({
+        error: true,
+        message: 'All fields are required!',
+      });
     }
-
-    const ipList = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-    const ips = ipList.split(',');
-
+  
     try {
-        const hash = await bcrypt.hash(password, saltRounds);
-
-        const countryData = await new Promise((resolve, reject) => {
-            satelize.satelize({ ip: ips[0] }, (error, payload) => {
-                if (error) reject(error);
-                else resolve(payload);
-            });
-        });
-
-        const country = countryData?.country || 'India';
-
-        const user = new User({
-            firstName,
-            lastName,
-            email,
-            password: hash,
-            country
-        });
-
-        await user.save();
-        console.log(user);
-        return res.status(201).send({
-            error: false,
-            message: 'New user created!',
-            userId: user._id,
-        });        
+      const hash = await bcrypt.hash(password, saltRounds);
+  
+      if (!req.file) {
+        throw CustomException('Profile picture is required', 400);
+      }
+  
+      const fileUri = getDataUri(req.file);
+      const uploadResult = await cloudinary.uploader.upload(fileUri.content, {
+        resource_type: 'image',
+      });
+  
+      if (!uploadResult?.secure_url) {
+        throw CustomException('Unable to upload image to Cloudinary', 500);
+      }
+  
+      const user = new User({
+        firstName,
+        lastName,
+        email,
+        password: hash,
+        profilePicture: uploadResult.secure_url,
+      });
+  
+      await user.save();
+  
+      return res.status(201).send({
+        error: false,
+        message: 'User registered successfully!',
+        userId: user._id,
+      });
     } catch (error) {
-        console.error('Error saving user:', error);
-
-        if (error.message.includes('E11000')) {
-            return res.status(400).send({
-                error: true,
-                message: 'Email is already registered!',
-            });
-        }
-
-        return res.status(500).send({
-            error: true,
-            message: 'Something went wrong during registration!',
+      console.error('Registration Error:', error);
+  
+      if (error.message.includes('E11000')) {
+        return res.status(400).send({
+          error: true,
+          message: 'Email already registered!',
         });
+      }
+  
+      return res.status(error.status || 500).send({
+        error: true,
+        message: error.message || 'Something went wrong!',
+      });
     }
 };
 
